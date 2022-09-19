@@ -3,47 +3,50 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
-void main() {
-  runApp(const MyScreen());
-}
+class Item {
+  final String directionName;
+  final double directionDegrees;
+  Item(this.directionName, this.directionDegrees);
 
-class MyScreen extends StatelessWidget {
-  const MyScreen({super.key});
-
-  String pickDirection() {
-    String goalDirection = "";
-    List directions = [
-      'North',
-      'South',
-      'East',
-      'West',
-      'Northeast',
-      'Northwest',
-      'Southeast',
-      'Southwest'
-    ];
-    int randomIndex = Random().nextInt(8);
-    return directions[randomIndex];
+  String getName() {
+    return directionName;
   }
 
-  // This widget is the root of your application.
+  double getDegrees() {
+    return directionDegrees;
+  }
+}
+
+class MyMagnet extends StatefulWidget {
+  const MyMagnet(
+      {super.key,
+      required goalDirectionName,
+      required goalDirectionDegrees,
+      required playerDirectionDegrees});
+
+  @override
+  State createState() => _MyMagnetState();
+}
+
+class _MyMagnetState extends State<MyMagnet> {
+  Item goalDirection = Item("", 0.0);
+  double goalDirectionDegrees = 0.0;
+  double playerDirectionDegrees = 0.0;
+  void _setRandomDirection(MyMagnet magnet) {
+    setState(() {
+      List directions = [
+        Item("North", 0.0),
+        Item("South", 180.0),
+        Item("East", 90.0),
+        Item("West", 270.0)
+      ];
+      int randomIndex = Random().nextInt(5);
+      goalDirection = directions[randomIndex];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Magnetometer Game',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: Scaffold(
-          appBar: AppBar(title: const Text("Game")),
-          body: Center(
-              child: Column(children: [
-            Text(
-              "Your Goal Direction: ${pickDirection()}",
-              textAlign: TextAlign.center,
-              textScaleFactor: 2.0,
-            )
-          ])),
-        )); // make the body column;
+    return Scaffold(appBar: AppBar(title: Text("Game Screen")));
   }
 }
