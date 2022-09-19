@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_3_sensory_overload/scoreboard.dart';
 
 void main() {
   runApp(const MyApp());
@@ -112,4 +113,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+void _handleScoreAdded(Score score) {
+  //bubble sort and add from beginning
 }
