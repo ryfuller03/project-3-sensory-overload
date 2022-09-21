@@ -48,6 +48,15 @@ class _ScorePageState extends State<ScorePage> {
     const Score(degree: 8)
   ];
 
+  void _handleScoreAdded(int degreesOff) {
+    setState(() {
+      print("adding score");
+      Score score = Score(degree: degreesOff);
+      scores.add(score);
+      scores.sort();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -58,25 +67,18 @@ class _ScorePageState extends State<ScorePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
         backgroundColor: Colors.teal,
       ),
       body: ListView(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         children: scores.map((score) {
           return ScoreItem(
             score: score,
+            //rank: rank
           );
         }).toList(),
       ),
     );
   }
-}
-
-void _handleScoreAdded(Score score) {
-  //bubble sort and add from beginning
 }

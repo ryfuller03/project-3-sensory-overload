@@ -6,6 +6,7 @@ class Score {
   const Score({required this.degree});
 
   final int degree;
+  //final int rank;
 }
 
 class ScoreItem extends StatelessWidget {
@@ -15,6 +16,10 @@ class ScoreItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(title: Text(score.degree.toString()));
+    return ListTile(
+      title: Text(score.degree.toString()),
+
+      //leading: Text(score.rank.toString())
+    );
   }
 }
