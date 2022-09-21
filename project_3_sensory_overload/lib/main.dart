@@ -43,17 +43,18 @@ class ScorePage extends StatefulWidget {
 
 class _ScorePageState extends State<ScorePage> {
   final List<Score> scores = [
-    const Score(degree: 12),
-    const Score(degree: 20),
-    const Score(degree: 8)
+    const Score(degree: 12, rank: 1),
+    const Score(degree: 20, rank: 2),
+    const Score(degree: 8, rank: 3)
   ];
 
   void _handleScoreAdded(int degreesOff) {
     setState(() {
       print("adding score");
-      Score score = Score(degree: degreesOff);
+      Score score = Score(degree: degreesOff, rank: 1);
       scores.add(score);
-      scores.sort();
+      scores
+          .sort(); //if the list was just int values, this would work. Not sure if it does now.
     });
   }
 

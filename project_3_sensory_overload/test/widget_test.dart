@@ -20,4 +20,13 @@ void main() {
     //then makes sure the list has nothing in it
     expect(find.byType(ListTile), findsNothing);
   });
+
+  testWidgets('_HandleNewItem add an item and sorts the list',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const MyApp());
+
+    //first add new item
+
+    //check if sorted
+  });
 }
