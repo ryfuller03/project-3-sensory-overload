@@ -9,17 +9,12 @@ class Score {
 }
 
 class ScoreItem extends StatelessWidget {
-  ScoreItem();
+  ScoreItem({required this.score});
+
+  final Score score;
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return ListTile(title: Text(score.degree.toString()));
   }
 }
-
-//not sure if this is necessary?
-//should the entire scoreboard be a class or just a simpler widget
-//with an indefinite number of ScoteItem widgets within?
-
-class Scoreboard {}
