@@ -27,4 +27,14 @@ void main() {
     expect(find.text('0'), findsNothing);
     expect(find.text('1'), findsOneWidget);
   });
+
+  testWidgets('Scoreboard had nothing in it', (WidgetTester tester) async {
+    await tester.pumpWidget(const MyApp());
+
+    //first makes sure a list is there
+    expect(find.byType(ListView), findsOneWidget);
+
+    //then makes sure the list has nothing in it
+    //expect(find.byType(ListTile), findsNothing);
+  });
 }
