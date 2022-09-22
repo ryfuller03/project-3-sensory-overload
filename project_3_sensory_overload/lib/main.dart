@@ -42,20 +42,38 @@ class ScorePage extends StatefulWidget {
 }
 
 class _ScorePageState extends State<ScorePage> {
-  final List<Score> scores = [
-    const Score(degree: 12, rank: 1),
-    const Score(degree: 20, rank: 2),
-    const Score(degree: 8, rank: 3)
+  final List<Score> scoresList = [
+    const Score(degree: 12),
+    const Score(degree: 20),
+    const Score(degree: 8)
   ];
 
   void _handleScoreAdded(int degreesOff) {
     setState(() {
       print("adding score");
-      Score score = Score(degree: degreesOff, rank: 1);
-      scores.add(score);
-      scores
-          .sort(); //if the list was just int values, this would work. Not sure if it does now.
+      Score score = Score(degree: degreesOff);
+      scoresList.add(score);
+      _scoreSortHelper(scoresList);
+      //.sort(); //if the list was just int values, this would work. Not sure if it does now.
     });
+  }
+
+  List<Score> _scoreSortHelper(List<Score> scores) {
+    List<Score> scoresSorted = [];
+
+    //sort list
+
+    //convert sorted list to maps
+
+    final scoresMap = scores.asMap();
+
+    //change rank to key of map
+    for (Score s in scores) {
+      //s.rank = scoresMap.keys
+    }
+
+    //return sorted list
+    return (scoresSorted);
   }
 
   @override
@@ -67,19 +85,26 @@ class _ScorePageState extends State<ScorePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        backgroundColor: Colors.teal,
-      ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        children: scores.map((score) {
-          return ScoreItem(
-            score: score,
-            //rank: rank
-          );
-        }).toList(),
-      ),
-    );
+        appBar: AppBar(
+          title: Text(widget.title),
+          backgroundColor: Colors.teal,
+        ),
+        body: ListView(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          children: scoresList.map((score) {
+            return ScoreItem(
+              score: score,
+            );
+          }).toList(),
+        ));
   }
 }
+
+//example of getting index of list -> map -> keys
+
+//myList.asMap().entries.map((entry) {
+//    int idx = entry.key;
+//    String val = entry.value;
+
+//    return something;
+//});

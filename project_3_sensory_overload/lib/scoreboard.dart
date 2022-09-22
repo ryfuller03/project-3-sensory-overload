@@ -3,10 +3,10 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 
 class Score {
-  const Score({required this.degree, required this.rank});
+  const Score({required this.degree});
 
   final int degree;
-  final int rank;
+  //final int rank;
 }
 
 class ScoreItem extends StatelessWidget {
@@ -16,8 +16,10 @@ class ScoreItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-        title: Text(score.degree.toString()),
-        leading: Text(score.rank.toString()));
+    return ListTile(title: Text(score.degree.toString())
+
+        // RANK
+        // leading: Text(score.rank.toString()));
+        );
   }
 }
