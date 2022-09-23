@@ -3,11 +3,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
-import 'package:flutter/services.dart';
 
 class Item {
-  final String directionName;
-  final double directionDegrees;
+  String directionName;
+  double directionDegrees;
   Item(this.directionName, this.directionDegrees);
 
   String getName() {
@@ -23,10 +22,10 @@ class MyMagnet extends StatefulWidget {
   const MyMagnet({super.key});
 
   @override
-  State createState() => _MyMagnetState();
+  State createState() => MyMagnetState();
 }
 
-class _MyMagnetState extends State<MyMagnet> {
+class MyMagnetState extends State<MyMagnet> {
   Item goalDirection = Item("", 0.0);
   double correctDirection = 0.0;
   int score = 0;
@@ -35,11 +34,11 @@ class _MyMagnetState extends State<MyMagnet> {
   final _streamSubscriptions = <StreamSubscription<dynamic>>[];
   final Color themeColor = Colors.teal;
 
-  _MyMagnetState() {
-    _setRandomDirection();
+  MyMagnetState() {
+    setRandomDirection();
   }
 
-  void _setRandomDirection() {
+  void setRandomDirection() {
     List directions = [
       Item("North", 0.0),
       Item("South", 180.0),
@@ -51,28 +50,24 @@ class _MyMagnetState extends State<MyMagnet> {
     orangeArrowVisible = false;
   }
 
-  void _showSolution() {
+  void showSolution() {
     orangeArrowVisible = true;
-    setState(() {
-      previousScore = score;
-    });
+    previousScore = score;
   }
 
-  void _processUserAnswer(double x, double y) {
+  void processUserAnswer(double x, double y) {
     // math help from Simon Reid on 09/22/2022
-    setState(() {
-      correctDirection = (atan(y / x) + pi + (pi / 2));
-      correctDirection = x < 0
-          ? correctDirection + pi
-          : correctDirection; // makes it positive // converts from radians to degrees
-      double goalDegreesRadians = goalDirection.getDegrees() * (pi / 180);
-      correctDirection = goalDegreesRadians - correctDirection;
-      double scoreCalculation = (correctDirection * (180 / pi)).toInt() % 360;
-      score = scoreCalculation > 180
-          ? (360 - scoreCalculation).toInt()
-          : scoreCalculation.toInt(); // calculates user score
-      // add score to list
-    });
+    correctDirection = (atan(y / x) + pi + (pi / 2));
+    correctDirection = x < 0
+        ? correctDirection + pi
+        : correctDirection; // makes it positive // converts from radians to degrees
+    double goalDegreesRadians = goalDirection.getDegrees() * (pi / 180);
+    correctDirection = goalDegreesRadians - correctDirection;
+    double scoreCalculation = (correctDirection * (180 / pi)).toInt() % 360;
+    score = scoreCalculation > 180
+        ? (360 - scoreCalculation).toInt()
+        : scoreCalculation.toInt();
+    // add score to list
   }
 
   @override
@@ -85,10 +80,9 @@ class _MyMagnetState extends State<MyMagnet> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-                // Goal Direction Text
                 padding: const EdgeInsets.only(top: 0.0),
                 key: const Key("Goal Direction Text"),
-                child: Text("Goal Direction: ${goalDirection.getDegrees()}",
+                child: Text("Goal Direction: ${goalDirection.getName()}",
                     style: const TextStyle(fontSize: 30),
                     textAlign: TextAlign.center)),
             Padding(
@@ -106,19 +100,17 @@ class _MyMagnetState extends State<MyMagnet> {
                           size: 100.0, color: Colors.orange))
             ]),
             Padding(
-                // Submit Answer button
                 padding: const EdgeInsets.only(top: 25.0),
                 child: ElevatedButton(
-                    onPressed: _showSolution,
+                    onPressed: showSolution,
                     style:
                         ElevatedButton.styleFrom(backgroundColor: themeColor),
                     key: const Key("Submit Answer Button"),
                     child: const Text("Submit Answer"))),
             Padding(
-                // Gives the player a new direction
                 padding: const EdgeInsets.only(top: 0.0),
                 child: ElevatedButton(
-                    onPressed: _setRandomDirection,
+                    onPressed: setRandomDirection,
                     style:
                         ElevatedButton.styleFrom(backgroundColor: themeColor),
                     key: const Key("New Direction Button"),
@@ -129,24 +121,15 @@ class _MyMagnetState extends State<MyMagnet> {
 
   @override
   void dispose() {
-    // SystemChrome.setPreferredOrientations([
-    //   DeviceOrientation.landscapeLeft,
-    //   DeviceOrientation.landscapeRight,
-    //   DeviceOrientation.portraitUp,
-    //   DeviceOrientation.portraitDown
-    // ]);
     super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
-    // SystemChrome.setPreferredOrientations(
-    //     [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
-
     _streamSubscriptions.add(magnetometerEvents.listen((event) => {
           setState(() {
-            _processUserAnswer(event.x, event.y);
+            processUserAnswer(event.x, event.y);
           })
         }));
   }

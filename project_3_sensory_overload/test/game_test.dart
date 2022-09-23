@@ -2,17 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_3_sensory_overload/game.dart';
 
-import 'package:project_3_sensory_overload/main.dart';
-
 void main() {
-  /*
-  TESTS TO MAKE:
-* Texts show up correctly
-* Orange arrow appears and disappears at the right times
-* Score calculations are correct/listener works
-* New direction button works
-  */
-
   // Because I am not using a MaterialApp in my build Widget, I create a TestingWidget Widget to wrap it in a Material App for me.
   // Here's where I got this solution: https://stackoverflow.com/questions/48498709/widget-test-fails-with-no-mediaquery-widget-found
   Widget testingWidget({required Widget child}) {
@@ -48,5 +38,22 @@ void main() {
 
     // Finds the Orange Arrow after the user submitted an answer.
     expect(find.byKey(const Key("Orange Arrow")), findsOneWidget);
+  });
+
+  testWidgets("Score is calculated correctly", (WidgetTester tester) async {
+    // Build the app.
+    await tester.pumpWidget(testingWidget(child: const MyMagnet()));
+
+    // create a MyMagnetState to interact with its variables and functions.
+    MyMagnetState magnetState = MyMagnetState();
+
+    // Set the goal direction to set up for the processUserAnswer function.
+    magnetState.goalDirection = Item("South", 180.0);
+
+    // Run processUserAnswer function with a specific angle.
+    magnetState.processUserAnswer(1.16, 5.79);
+
+    // Verify that the score we get back is calculated correctly.
+    expect(magnetState.score, 168);
   });
 }
