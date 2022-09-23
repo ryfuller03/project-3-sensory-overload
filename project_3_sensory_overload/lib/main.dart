@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_3_sensory_overload/game.dart';
+import 'package:project_3_sensory_overload/scoreboard.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,24 +18,17 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class ScorePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text("Score Screen"),
-          centerTitle: true,
-        ),
-        body: Center(
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.all(15),
-            ),
-            child: Text('Game'),
-            onPressed: () {
-              Navigator.pop(
-                  context, MaterialPageRoute(builder: (context) => MyMagnet()));
-            },
-          ),
-        ),
-      );
-}
+
+      //    child: ElevatedButton(
+       //     style: ElevatedButton.styleFrom(
+       //       padding: EdgeInsets.all(15),
+       //     ),
+       //     child: Text('Game'),
+       //     onPressed: () {
+       //       Navigator.pop(
+       //           context, MaterialPageRoute(builder: (context) => MyMagnet()));
+       //     },
+      //    ),
+//),
+ //     );
+//}
