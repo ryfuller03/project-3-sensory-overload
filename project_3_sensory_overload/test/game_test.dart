@@ -5,20 +5,31 @@ import 'package:project_3_sensory_overload/game.dart';
 import 'package:project_3_sensory_overload/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  /*
+  TESTS TO MAKE:
+* Texts show up correctly
+* Orange arrow appears and disappears at the right times
+* Score calculations are correct/listener works
+* New direction button works
+  */
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  // Because I am not using a MaterialApp in my build Widget, I create a TestingWidget Widget to wrap it in a Material App for me.
+  // Here's where I got this solution: https://stackoverflow.com/questions/48498709/widget-test-fails-with-no-mediaquery-widget-found
+  Widget testingWidget({required Widget child}) {
+    return MaterialApp(home: child);
+  }
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  testWidgets('Text and Buttons show up correctly',
+      (WidgetTester tester) async {
+    // Build the app.
+    await tester.pumpWidget(testingWidget(child: const MyMagnet()));
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Finds both "New Direction" and "Submit Answer" buttons.
+    expect(find.byKey(const Key("New Direction Button")), findsOneWidget);
+    expect(find.byKey(const Key("Submit Answer Button")), findsOneWidget);
+
+    // Finds both the "Previous Score" and "Goal Direction" text.
+    expect(find.byKey(const Key("Previous Score Text")), findsOneWidget);
+    expect(find.byKey(const Key("Goal Direction Text")), findsOneWidget);
   });
 }

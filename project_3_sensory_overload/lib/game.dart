@@ -82,16 +82,17 @@ class _MyMagnetState extends State<MyMagnet> {
             title: const Text("Game Screen"), backgroundColor: Colors.teal),
         body: Center(
             child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
                 // Goal Direction Text
-                padding: const EdgeInsets.only(top: 50.0),
-                key: const Key("GoalDirectionTest"),
+                padding: const EdgeInsets.only(top: 0.0),
+                key: const Key("Goal Direction Text"),
                 child: Text("Goal Direction: ${goalDirection.getDegrees()}",
                     style: const TextStyle(fontSize: 30),
                     textAlign: TextAlign.center)),
             Padding(
-                padding: const EdgeInsets.only(top: 40.0),
+                padding: const EdgeInsets.only(top: 10.0),
                 child: Text("Previous Score: $previousScore",
                     key: const Key("Previous Score Text"))),
             Stack(children: [
@@ -106,7 +107,7 @@ class _MyMagnetState extends State<MyMagnet> {
             ]),
             Padding(
                 // Submit Answer button
-                padding: const EdgeInsets.only(top: 250.0),
+                padding: const EdgeInsets.only(top: 25.0),
                 child: ElevatedButton(
                     onPressed: _showSolution,
                     style:
@@ -115,12 +116,12 @@ class _MyMagnetState extends State<MyMagnet> {
                     child: const Text("Submit Answer"))),
             Padding(
                 // Gives the player a new direction
-                padding: const EdgeInsets.only(top: 20.0),
+                padding: const EdgeInsets.only(top: 0.0),
                 child: ElevatedButton(
                     onPressed: _setRandomDirection,
                     style:
                         ElevatedButton.styleFrom(backgroundColor: themeColor),
-                    key: const Key("NewDirectionButton"),
+                    key: const Key("New Direction Button"),
                     child: const Text("New Direction")))
           ],
         )));
@@ -128,20 +129,20 @@ class _MyMagnetState extends State<MyMagnet> {
 
   @override
   void dispose() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown
-    ]);
+    // SystemChrome.setPreferredOrientations([
+    //   DeviceOrientation.landscapeLeft,
+    //   DeviceOrientation.landscapeRight,
+    //   DeviceOrientation.portraitUp,
+    //   DeviceOrientation.portraitDown
+    // ]);
     super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
-    SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+    // SystemChrome.setPreferredOrientations(
+    //     [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
 
     _streamSubscriptions.add(magnetometerEvents.listen((event) => {
           setState(() {
