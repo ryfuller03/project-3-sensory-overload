@@ -31,7 +31,6 @@ class _MyMagnetState extends State<MyMagnet> {
   double correctDirection = 0.0;
   int score = 0;
   int previousScore = 0;
-  List<double>? _magnetometerValues;
   bool orangeArrowVisible = false;
   final _streamSubscriptions = <StreamSubscription<dynamic>>[];
   final Color themeColor = Colors.teal;
@@ -78,49 +77,51 @@ class _MyMagnetState extends State<MyMagnet> {
 
   @override
   Widget build(BuildContext context) {
-    final magnetometer =
-        _magnetometerValues?.map((double v) => v.toStringAsFixed(1)).toList();
-
     return Scaffold(
-        appBar:
-            AppBar(title: Text("Game Screen"), backgroundColor: Colors.teal),
+        appBar: AppBar(
+            title: const Text("Game Screen"), backgroundColor: Colors.teal),
         body: Center(
             child: Column(
           children: [
             Padding(
-              // Goal Direction Text
-              padding: EdgeInsets.only(top: 50.0),
-              child: Text("Goal Direction: ${goalDirection.getDegrees()}",
-                  style: TextStyle(fontSize: 30), textAlign: TextAlign.center),
-            ),
+                // Goal Direction Text
+                padding: const EdgeInsets.only(top: 50.0),
+                key: const Key("GoalDirectionTest"),
+                child: Text("Goal Direction: ${goalDirection.getDegrees()}",
+                    style: const TextStyle(fontSize: 30),
+                    textAlign: TextAlign.center)),
             Padding(
-                padding: EdgeInsets.only(top: 40.0),
-                child: Text("Previous Score: ${previousScore}")),
+                padding: const EdgeInsets.only(top: 40.0),
+                child: Text("Previous Score: $previousScore",
+                    key: const Key("Previous Score Text"))),
             Stack(children: [
-              Icon(Icons.arrow_upward, size: 100.0),
+              const Icon(Icons.arrow_upward, size: 100.0),
               orangeArrowVisible == false
-                  ? Icon(Icons.arrow_upward, size: 100.0)
+                  ? const Icon(Icons.arrow_upward, size: 100.0)
                   : Transform.rotate(
                       angle: correctDirection,
-                      child: Icon(Icons.arrow_upward,
+                      key: const Key("Orange Arrow"),
+                      child: const Icon(Icons.arrow_upward,
                           size: 100.0, color: Colors.orange))
             ]),
             Padding(
                 // Submit Answer button
-                padding: EdgeInsets.only(top: 250.0),
+                padding: const EdgeInsets.only(top: 250.0),
                 child: ElevatedButton(
-                    child: Text("Submit Answer"),
                     onPressed: _showSolution,
                     style:
-                        ElevatedButton.styleFrom(backgroundColor: themeColor))),
+                        ElevatedButton.styleFrom(backgroundColor: themeColor),
+                    key: const Key("Submit Answer Button"),
+                    child: const Text("Submit Answer"))),
             Padding(
                 // Gives the player a new direction
-                padding: EdgeInsets.only(top: 20.0),
+                padding: const EdgeInsets.only(top: 20.0),
                 child: ElevatedButton(
-                    child: Text("New Direction"),
                     onPressed: _setRandomDirection,
                     style:
-                        ElevatedButton.styleFrom(backgroundColor: themeColor)))
+                        ElevatedButton.styleFrom(backgroundColor: themeColor),
+                    key: const Key("NewDirectionButton"),
+                    child: const Text("New Direction")))
           ],
         )));
   }
@@ -136,6 +137,7 @@ class _MyMagnetState extends State<MyMagnet> {
     super.dispose();
   }
 
+  @override
   void initState() {
     super.initState();
     SystemChrome.setPreferredOrientations(
@@ -143,7 +145,6 @@ class _MyMagnetState extends State<MyMagnet> {
 
     _streamSubscriptions.add(magnetometerEvents.listen((event) => {
           setState(() {
-            _magnetometerValues = <double>[event.x, event.y];
             _processUserAnswer(event.x, event.y);
           })
         }));
@@ -151,5 +152,5 @@ class _MyMagnetState extends State<MyMagnet> {
 }
 
 void main() {
-  runApp(MaterialApp(title: "Magnet Game", home: MyMagnet()));
+  runApp(const MaterialApp(title: "Magnet Game", home: MyMagnet()));
 }
