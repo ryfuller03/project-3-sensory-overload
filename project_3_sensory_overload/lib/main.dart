@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_3_sensory_overload/game.dart';
 import 'package:project_3_sensory_overload/scoreboard.dart';
 
 void main() {
@@ -11,13 +12,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Direction Game',
-      home: GameScreen(),
+      title: 'Guess the Direction',
+      home: MyMagnet(),
       //change to game screen when pushed
       theme: ThemeData(
         primarySwatch: Colors.blue,
-      ),
-      home: const ScorePage(title: 'Scores'),
+      )
     );
   }
 }
@@ -35,6 +35,13 @@ class ScorePage extends StatefulWidget {
   // always marked "final".
 
   final String title;
+  
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
+  }
+}
 
 class GameScreen extends StatelessWidget {
   @override
@@ -67,15 +74,7 @@ class _ScorePageState extends State<ScorePage> {
     const Score(degree: 8)
   ];
 
-  void _handleScoreAdded(int degreesOff) {
-    setState(() {
-      print("adding score");
-      Score score = Score(degree: degreesOff);
-      scoresList.add(score);
-      _scoreSortHelper(scoresList);
-      //.sort(); //if the list was just int values, this would work. Not sure if it does now.
-    });
-  }
+  
 
   List<Score> _scoreSortHelper(List<Score> scores) {
     List<Score> scoresSorted = [];
@@ -93,6 +92,16 @@ class _ScorePageState extends State<ScorePage> {
 
     //return sorted list
     return (scoresSorted);
+  }
+
+  void _handleScoreAdded(int degreesOff) {
+    setState(() {
+      print("adding score");
+      Score score = Score(degree: degreesOff);
+      scoresList.add(score);
+      _scoreSortHelper(scoresList);
+      //.sort(); //if the list was just int values, this would work. Not sure if it does now.
+    });
   }
 
   @override
