@@ -32,4 +32,21 @@ void main() {
     expect(find.byKey(const Key("Previous Score Text")), findsOneWidget);
     expect(find.byKey(const Key("Goal Direction Text")), findsOneWidget);
   });
+
+  testWidgets("'New Direction' button makes Orange Arrow appear",
+      (WidgetTester tester) async {
+    // Build the app.
+    await tester.pumpWidget(testingWidget(child: const MyMagnet()));
+
+    // Because the user hasn't submitted an answer,
+    // we should expect the Orange Arrow to not be found.
+    expect(find.byKey(const Key("Orange Arrow")), findsNothing);
+
+    // Taps the 'Submit Answer' button and triggers a frame.
+    await tester.tap(find.byKey(const Key("Submit Answer Button")));
+    await tester.pump();
+
+    // Finds the Orange Arrow after the user submitted an answer.
+    expect(find.byKey(const Key("Orange Arrow")), findsOneWidget);
+  });
 }
