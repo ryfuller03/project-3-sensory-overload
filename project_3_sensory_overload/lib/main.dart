@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_3_sensory_overload/game.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,37 +10,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Direction Game',
       home: MyMagnet(),
-      //change to game screen when pushed
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
     );
   }
-}
-
-class MyMagnet extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text("Game Screen"),
-          centerTitle: true,
-        ),
-        body: Center(
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.all(15),
-            ),
-            child: Text('Scores'),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ScorePage()));
-            },
-          ),
-        ),
-      );
 }
 
 class ScorePage extends StatelessWidget {

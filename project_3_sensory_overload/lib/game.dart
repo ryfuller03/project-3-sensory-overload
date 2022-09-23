@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:project_3_sensory_overload/main.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
 class Item {
@@ -73,50 +74,58 @@ class MyMagnetState extends State<MyMagnet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: const Text("Game Screen"), backgroundColor: Colors.teal),
-        body: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-                padding: const EdgeInsets.only(top: 0.0),
-                key: const Key("Goal Direction Text"),
-                child: Text("Goal Direction: ${goalDirection.getName()}",
-                    style: const TextStyle(fontSize: 30),
-                    textAlign: TextAlign.center)),
-            Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: Text("Previous Score: $previousScore",
-                    key: const Key("Previous Score Text"))),
-            Stack(children: [
-              const Icon(Icons.arrow_upward, size: 100.0),
-              orangeArrowVisible == false
-                  ? const Icon(Icons.arrow_upward, size: 100.0)
-                  : Transform.rotate(
-                      angle: correctDirection,
-                      key: const Key("Orange Arrow"),
-                      child: const Icon(Icons.arrow_upward,
-                          size: 100.0, color: Colors.orange))
-            ]),
-            Padding(
-                padding: const EdgeInsets.only(top: 25.0),
-                child: ElevatedButton(
-                    onPressed: showSolution,
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: themeColor),
-                    key: const Key("Submit Answer Button"),
-                    child: const Text("Submit Answer"))),
-            Padding(
-                padding: const EdgeInsets.only(top: 0.0),
-                child: ElevatedButton(
-                    onPressed: setRandomDirection,
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: themeColor),
-                    key: const Key("New Direction Button"),
-                    child: const Text("New Direction")))
-          ],
-        )));
+      appBar: AppBar(
+          title: const Text("Game Screen"), backgroundColor: Colors.teal),
+      body: Center(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Padding(
+              padding: const EdgeInsets.only(top: 0.0),
+              key: const Key("Goal Direction Text"),
+              child: Text("Goal Direction: ${goalDirection.getName()}",
+                  style: const TextStyle(fontSize: 30),
+                  textAlign: TextAlign.center)),
+          Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Text("Previous Score: $previousScore",
+                  key: const Key("Previous Score Text"))),
+          Stack(children: [
+            const Icon(Icons.arrow_upward, size: 100.0),
+            orangeArrowVisible == false
+                ? const Icon(Icons.arrow_upward, size: 100.0)
+                : Transform.rotate(
+                    angle: correctDirection,
+                    key: const Key("Orange Arrow"),
+                    child: const Icon(Icons.arrow_upward,
+                        size: 100.0, color: Colors.orange))
+          ]),
+          Padding(
+              padding: const EdgeInsets.only(top: 25.0),
+              child: ElevatedButton(
+                  onPressed: showSolution,
+                  style: ElevatedButton.styleFrom(backgroundColor: themeColor),
+                  key: const Key("Submit Answer Button"),
+                  child: const Text("Submit Answer"))),
+          Padding(
+              padding: const EdgeInsets.only(top: 0.0),
+              child: ElevatedButton(
+                  onPressed: setRandomDirection,
+                  style: ElevatedButton.styleFrom(backgroundColor: themeColor),
+                  key: const Key("New Direction Button"),
+                  child: const Text("New Direction"))),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(),
+              child: Text('Scores'),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ScorePage()));
+              },
+            ),
+          ),
+        ]),
+      ),
+    );
   }
 
   @override
