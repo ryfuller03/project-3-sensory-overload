@@ -43,11 +43,24 @@ class MyHomePage extends StatelessWidget {
       );
 }
 
-//example of getting index of list -> map -> keys
-
-//myList.asMap().entries.map((entry) {
-//    int idx = entry.key;
-//    String val = entry.value;
-
-//    return something;
-//});
+class ScoreScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text("Score Screen"),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.all(15),
+            ),
+            child: Text('Game'),
+            onPressed: () {
+              Navigator.pop(context,
+                  MaterialPageRoute(builder: (context) => MyHomePage()));
+            },
+          ),
+        ),
+      );
+}
