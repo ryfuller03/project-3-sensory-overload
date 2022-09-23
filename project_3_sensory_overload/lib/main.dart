@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Direction Game',
-      home: GameScreen(),
+      home: MyMagnet(),
       //change to game screen when pushed
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class GameScreen extends StatelessWidget {
+class MyMagnet extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -35,14 +35,14 @@ class GameScreen extends StatelessWidget {
             child: Text('Scores'),
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ScoreScreen()));
+                  MaterialPageRoute(builder: (context) => ScorePage()));
             },
           ),
         ),
       );
 }
 
-class ScoreScreen extends StatelessWidget {
+class ScorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -56,8 +56,8 @@ class ScoreScreen extends StatelessWidget {
             ),
             child: Text('Game'),
             onPressed: () {
-              Navigator.pop(context,
-                  MaterialPageRoute(builder: (context) => GameScreen()));
+              Navigator.pop(
+                  context, MaterialPageRoute(builder: (context) => MyMagnet()));
             },
           ),
         ),
