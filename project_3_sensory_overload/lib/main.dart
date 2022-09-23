@@ -8,22 +8,14 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Score Page',
+      title: 'Direction Game',
+      home: GameScreen(),
+      //change to game screen when pushed
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.teal,
+        primarySwatch: Colors.blue,
       ),
       home: const ScorePage(title: 'Scores'),
     );
@@ -44,10 +36,30 @@ class ScorePage extends StatefulWidget {
 
   final String title;
 
+class GameScreen extends StatelessWidget {
   @override
   State<ScorePage> createState() => _ScorePageState();
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text("Game Screen"),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.all(15),
+            ),
+            child: Text('Scores'),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ScoreScreen()));
+            },
+          ),
+        ),
+      );
 }
 
+class ScoreScreen extends StatelessWidget {
 class _ScorePageState extends State<ScorePage> {
   final List<Score> scoresList = [
     const Score(degree: 12),
@@ -95,6 +107,22 @@ class _ScorePageState extends State<ScorePage> {
         appBar: AppBar(
           title: Text(widget.title),
           backgroundColor: Colors.teal,
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text("Score Screen"),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.all(15),
+            ),
+            child: Text('Game'),
+            onPressed: () {
+              Navigator.pop(context,
+                  MaterialPageRoute(builder: (context) => GameScreen()));
+            },
+          ),
         ),
         body: ListView(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
