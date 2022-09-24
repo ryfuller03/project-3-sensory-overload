@@ -17,18 +17,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-      //    child: ElevatedButton(
-       //     style: ElevatedButton.styleFrom(
-       //       padding: EdgeInsets.all(15),
-       //     ),
-       //     child: Text('Game'),
-       //     onPressed: () {
-       //       Navigator.pop(
-       //           context, MaterialPageRoute(builder: (context) => MyMagnet()));
-       //     },
-      //    ),
-//),
- //     );
-//}
