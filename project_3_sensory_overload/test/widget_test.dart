@@ -12,7 +12,7 @@ import 'package:project_3_sensory_overload/main.dart';
 
 void main() {
   testWidgets('Scoreboard had nothing in it', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(MyApp());
 
     //first makes sure a list is there
     expect(find.byType(ListView), findsOneWidget);
@@ -23,7 +23,7 @@ void main() {
 
   testWidgets('_HandleNewItem add an item and sorts the list',
       (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(MyApp());
 
     //first add new item
 

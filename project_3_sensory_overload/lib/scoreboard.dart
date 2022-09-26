@@ -2,20 +2,28 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 
-class Score {
-  const Score({required this.degree});
+class ScoreScreen extends StatefulWidget {
+  List<int> scoresList;
+  ScoreScreen({super.key, required this.scoresList});
 
-  final int degree;
-  //final int rank;
+  @override
+  State createState() => ScoreScreenState(scoresList);
 }
 
-class ScoreItem extends StatelessWidget {
-  ScoreItem({required this.score});
+class ScoreScreenState extends State<ScoreScreen> {
+  List<int> scoresList;
 
-  final Score score;
+  ScoreScreenState(this.scoresList);
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(title: Text(score.degree.toString()));
+    scoresList.sort((a, b) => a.compareTo(b));
+    return Scaffold(
+        appBar: AppBar(title: Text("Scores Screen")),
+        body: ListView.builder(
+            itemCount: scoresList.length,
+            prototypeItem: ListTile(title: Text(scoresList.first.toString())),
+            itemBuilder: ((context, index) =>
+                ListTile(title: Text(scoresList[index].toString())))));
   }
 }
