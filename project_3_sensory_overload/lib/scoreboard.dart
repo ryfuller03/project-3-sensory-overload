@@ -1,12 +1,12 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class ScoreScreen extends StatefulWidget {
   List<int> scoresList;
   ScoreScreen({super.key, required this.scoresList});
 
   @override
+  // ignore: no_logic_in_create_state
   State createState() => ScoreScreenState(scoresList);
 }
 
@@ -19,7 +19,8 @@ class ScoreScreenState extends State<ScoreScreen> {
   Widget build(BuildContext context) {
     scoresList.sort((a, b) => a.compareTo(b));
     return Scaffold(
-        appBar: AppBar(title: Text("Scores Screen")),
+        appBar: AppBar(
+            title: const Text("Scores Screen"), backgroundColor: Colors.teal),
         body: ListView.builder(
             itemCount: scoresList.length,
             prototypeItem: ListTile(title: Text(scoresList.first.toString())),

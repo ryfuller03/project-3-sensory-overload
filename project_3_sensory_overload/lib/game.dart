@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:project_3_sensory_overload/main.dart';
+import 'package:project_3_sensory_overload/scoreboard.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
 class Item {
@@ -19,13 +19,14 @@ class Item {
   }
 }
 
+// ignore: must_be_immutable
 class MyMagnet extends StatefulWidget {
   List<int> scoresList;
 
   MyMagnet({super.key, required this.scoresList});
 
   @override
-  State createState() => MyMagnetState(scoresList);
+  State createState() => MyMagnetState();
 }
 
 class MyMagnetState extends State<MyMagnet> {
@@ -36,9 +37,8 @@ class MyMagnetState extends State<MyMagnet> {
   bool orangeArrowVisible = false;
   final _streamSubscriptions = <StreamSubscription<dynamic>>[];
   final Color themeColor = Colors.teal;
-  final List<int> scoresList;
 
-  MyMagnetState(this.scoresList) {
+  MyMagnetState() {
     setRandomDirection();
   }
 
@@ -57,7 +57,7 @@ class MyMagnetState extends State<MyMagnet> {
   void showSolution() {
     orangeArrowVisible = true;
     previousScore = score;
-    scoresList.add(score);
+    widget.scoresList.add(score);
   }
 
   void processUserAnswer(double x, double y) {
@@ -77,6 +77,7 @@ class MyMagnetState extends State<MyMagnet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
             title: const Text("Direction Guesser"),
             backgroundColor: Colors.teal),
@@ -118,8 +119,18 @@ class MyMagnetState extends State<MyMagnet> {
                   key: const Key("New Direction Button"),
                   child: const Text("New Direction"))),
           Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Text(scoresList.toString()))
+              padding: const EdgeInsets.only(top: 0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ScoreScreen(scoresList: widget.scoresList)));
+                },
+                child: const Text("Scores Screen"),
+              ))
         ])));
   }
 
@@ -140,5 +151,6 @@ class MyMagnetState extends State<MyMagnet> {
 }
 
 void main() {
-  runApp(MaterialApp(title: "Magnet Game", home: MyMagnet(scoresList: [])));
+  runApp(
+      MaterialApp(title: "Magnet Game", home: MyMagnet(scoresList: const [])));
 }
