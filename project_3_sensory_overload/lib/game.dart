@@ -2,8 +2,9 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:project_3_sensory_overload/main.dart';
+import 'package:project_3_sensory_overload/scoreboard.dart';
 import 'package:sensors_plus/sensors_plus.dart';
+import 'package:flutter/services.dart';
 
 class Item {
   String directionName;
@@ -19,8 +20,11 @@ class Item {
   }
 }
 
+// ignore: must_be_immutable
 class MyMagnet extends StatefulWidget {
-  const MyMagnet({super.key});
+  List<int> scoresList;
+
+  MyMagnet({super.key, required this.scoresList});
 
   @override
   State createState() => MyMagnetState();
@@ -52,32 +56,37 @@ class MyMagnetState extends State<MyMagnet> {
   }
 
   void showSolution() {
-    orangeArrowVisible = true;
-    previousScore = score;
+    setState(() {
+      orangeArrowVisible = true;
+      previousScore = score;
+      widget.scoresList.add(score);
+    });
   }
 
   void processUserAnswer(double x, double y) {
     // math help from Simon Reid on 09/22/2022
     correctDirection = (atan(y / x) + pi + (pi / 2));
-    correctDirection = x < 0
-        ? correctDirection + pi
-        : correctDirection; // makes it positive // converts from radians to degrees
-    double goalDegreesRadians = goalDirection.getDegrees() * (pi / 180);
+    correctDirection =
+        x < 0 ? correctDirection + pi : correctDirection; // makes it positive
+    double goalDegreesRadians = goalDirection.getDegrees() *
+        (pi / 180); // converts from Radians to Degrees
     correctDirection = goalDegreesRadians - correctDirection;
     double scoreCalculation = (correctDirection * (180 / pi)).toInt() % 360;
     score = scoreCalculation > 180
         ? (360 - scoreCalculation).toInt()
         : scoreCalculation.toInt();
-    // add score to list
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: const Text("Game Screen"), backgroundColor: Colors.teal),
-      body: Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+            title: const Text("Direction Guesser"),
+            backgroundColor: Colors.teal),
+        body: Center(
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Padding(
               padding: const EdgeInsets.only(top: 0.0),
               key: const Key("Goal Direction Text"),
@@ -89,7 +98,8 @@ class MyMagnetState extends State<MyMagnet> {
               child: Text("Previous Score: $previousScore",
                   key: const Key("Previous Score Text"))),
           Stack(children: [
-            const Icon(Icons.arrow_upward, size: 100.0),
+            const Icon(Icons.arrow_upward,
+                size: 100.0, key: Key("Black Up Arrow")),
             orangeArrowVisible == false
                 ? const Icon(Icons.arrow_upward, size: 100.0)
                 : Transform.rotate(
@@ -113,29 +123,37 @@ class MyMagnetState extends State<MyMagnet> {
                   key: const Key("New Direction Button"),
                   child: const Text("New Direction"))),
           Padding(
-            padding: const EdgeInsets.all(15),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(),
-              child: Text('Scores'),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ScorePage()));
-              },
-            ),
-          ),
-        ]),
-      ),
-    );
+              padding: const EdgeInsets.only(top: 0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
+                key: const Key("Scores Screen Button"),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ScoreScreen(scoresList: widget.scoresList)));
+                },
+                child: const Text("Scores Screen"),
+              ))
+        ])));
   }
 
   @override
   void dispose() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp
+    ]);
     super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     _streamSubscriptions.add(magnetometerEvents.listen((event) => {
           setState(() {
             processUserAnswer(event.x, event.y);
@@ -145,5 +163,6 @@ class MyMagnetState extends State<MyMagnet> {
 }
 
 void main() {
-  runApp(const MaterialApp(title: "Magnet Game", home: MyMagnet()));
+  runApp(
+      MaterialApp(title: "Magnet Game", home: MyMagnet(scoresList: const [])));
 }
