@@ -20,7 +20,7 @@ class ScoreScreenState extends State<ScoreScreen> {
     scoresList.sort((a, b) => a.compareTo(b));
     return Scaffold(
         appBar: AppBar(
-            title: const Text("Scores Screen"), backgroundColor: Colors.teal),
+            title: const Text("Your Scores"), backgroundColor: Colors.teal),
         body: ListView.builder(
             key: const Key("Scores List"),
             itemCount: scoresList.length,
