@@ -22,9 +22,15 @@ class ScoreScreenState extends State<ScoreScreen> {
         appBar: AppBar(
             title: const Text("Scores Screen"), backgroundColor: Colors.teal),
         body: ListView.builder(
+            key: const Key("Scores List"),
             itemCount: scoresList.length,
             prototypeItem: ListTile(title: Text(scoresList.first.toString())),
-            itemBuilder: ((context, index) =>
-                ListTile(title: Text(scoresList[index].toString())))));
+            itemBuilder: ((context, index) => ListTile(
+                title: Text(scoresList[index].toString()),
+                leading: Text((index + 1).toString(),
+                    style: const TextStyle(
+                        color: Colors.orange,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold))))));
   }
 }

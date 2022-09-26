@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:project_3_sensory_overload/scoreboard.dart';
 import 'package:sensors_plus/sensors_plus.dart';
+import 'package:flutter/services.dart';
 
 class Item {
   String directionName;
@@ -55,9 +56,11 @@ class MyMagnetState extends State<MyMagnet> {
   }
 
   void showSolution() {
-    orangeArrowVisible = true;
-    previousScore = score;
-    widget.scoresList.add(score);
+    setState(() {
+      orangeArrowVisible = true;
+      previousScore = score;
+      widget.scoresList.add(score);
+    });
   }
 
   void processUserAnswer(double x, double y) {
@@ -95,7 +98,8 @@ class MyMagnetState extends State<MyMagnet> {
               child: Text("Previous Score: $previousScore",
                   key: const Key("Previous Score Text"))),
           Stack(children: [
-            const Icon(Icons.arrow_upward, size: 100.0),
+            const Icon(Icons.arrow_upward,
+                size: 100.0, key: Key("Black Up Arrow")),
             orangeArrowVisible == false
                 ? const Icon(Icons.arrow_upward, size: 100.0)
                 : Transform.rotate(
@@ -122,6 +126,7 @@ class MyMagnetState extends State<MyMagnet> {
               padding: const EdgeInsets.only(top: 0),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
+                key: const Key("Scores Screen Button"),
                 onPressed: () {
                   Navigator.push(
                       context,
@@ -136,12 +141,19 @@ class MyMagnetState extends State<MyMagnet> {
 
   @override
   void dispose() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp
+    ]);
     super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     _streamSubscriptions.add(magnetometerEvents.listen((event) => {
           setState(() {
             processUserAnswer(event.x, event.y);
