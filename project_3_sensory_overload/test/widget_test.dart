@@ -12,12 +12,13 @@ void main() {
 
   // A sorted list for testing purposes.
   List<int> scoresListTest = [0, 47, 65, 82, 103, 156];
+  List<String> directionListTest = ['North', 'South', 'East', ]
 
   testWidgets('Text and Buttons show up correctly',
       (WidgetTester tester) async {
     // Build the app.
     await tester
-        .pumpWidget(testingWidget(child: MyMagnet(scoresList: scoresListTest)));
+        .pumpWidget(testingWidget(child: MyMagnet(scoresList: scoresListTest, directionList: ,)));
 
     // Finds both "New Direction" and "Submit Answer" buttons.
     expect(find.byKey(const Key("New Direction Button")), findsOneWidget);
