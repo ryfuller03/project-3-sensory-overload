@@ -3,17 +3,19 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class ScoreScreen extends StatefulWidget {
   List<int> scoresList;
-  ScoreScreen({super.key, required this.scoresList});
+  List<String> directionList;
+  ScoreScreen({super.key, required this.scoresList, required this.directionList});
 
   @override
   // ignore: no_logic_in_create_state
-  State createState() => ScoreScreenState(scoresList);
+  State createState() => ScoreScreenState(scoresList, directionList);
 }
 
 class ScoreScreenState extends State<ScoreScreen> {
   List<int> scoresList;
+  List<String> directionList;
 
-  ScoreScreenState(this.scoresList);
+  ScoreScreenState(this.scoresList, this.directionList);
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +28,13 @@ class ScoreScreenState extends State<ScoreScreen> {
             itemCount: scoresList.length,
             prototypeItem: ListTile(title: Text(scoresList.first.toString())),
             itemBuilder: ((context, index) => ListTile(
-                title: Text(scoresList[index].toString()),
+                title: Text(scoresList[index].toString() + directionList.toString()),
                 leading: Text((index + 1).toString(),
                     style: const TextStyle(
                         color: Colors.orange,
                         fontSize: 24,
-                        fontWeight: FontWeight.bold))))));
+                        fontWeight: FontWeight.bold)),
+                        
+                ))));
   }
 }

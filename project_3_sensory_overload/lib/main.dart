@@ -8,6 +8,7 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({super.key, scoresList});
   final List<int> scoresList = [];
+  final List<String> directionList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
         title: 'Direction Game',
         home: MyMagnet(
           scoresList: scoresList,
+          directionList: directionList,
         ));
   }
 }
