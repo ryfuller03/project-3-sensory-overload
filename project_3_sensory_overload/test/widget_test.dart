@@ -54,7 +54,7 @@ void main() {
     MyMagnetState magnetState = MyMagnetState();
 
     // Set the goal direction to set up for the processUserAnswer function.
-    magnetState.goalDirection = Item("South", 180.0);
+    magnetState.goalDirection = CardinalDirection("South", 180.0);
 
     // Run processUserAnswer function with a specific angle.
     magnetState.processUserAnswer(1.16, 5.79);
