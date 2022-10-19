@@ -18,19 +18,25 @@ class ScoreScreenState extends State<ScoreScreen> {
   @override
   Widget build(BuildContext context) {
     scoresList.sort((a, b) => a.compareTo(b));
-    return Scaffold(
-        appBar: AppBar(
-            title: const Text("Your Scores"), backgroundColor: Colors.teal),
-        body: ListView.builder(
-            key: const Key("Scores List"),
-            itemCount: scoresList.length,
-            prototypeItem: ListTile(title: Text(scoresList.first.toString())),
-            itemBuilder: ((context, index) => ListTile(
-                title: Text(scoresList[index].toString()),
-                leading: Text((index + 1).toString(),
-                    style: const TextStyle(
-                        color: Colors.orange,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold))))));
+    if (scoresList.isNotEmpty) {
+      return Scaffold(
+          appBar: AppBar(
+              title: const Text("Your Scores"), backgroundColor: Colors.teal),
+          body: ListView.builder(
+              key: const Key("Scores List"),
+              itemCount: scoresList.length,
+              prototypeItem: ListTile(title: Text(scoresList.first.toString())),
+              itemBuilder: ((context, index) => ListTile(
+                  title: Text("${scoresList[index].toString()}º"),
+                  leading: Text((index + 1).toString(),
+                      style: const TextStyle(
+                          color: Colors.orange,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold))))));
+    } else {
+      return Scaffold(
+          appBar: AppBar(
+              title: const Text("Your Scores"), backgroundColor: Colors.teal));
+    }
   }
 }
