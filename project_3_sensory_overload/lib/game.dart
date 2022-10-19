@@ -6,10 +6,10 @@ import 'package:project_3_sensory_overload/scoreboard.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:flutter/services.dart';
 
-class CardinalDirection {
+class Item {
   String directionName;
   double directionDegrees;
-  CardinalDirection(this.directionName, this.directionDegrees);
+  Item(this.directionName, this.directionDegrees);
 
   String getName() {
     return directionName;
@@ -31,7 +31,7 @@ class MyMagnet extends StatefulWidget {
 }
 
 class MyMagnetState extends State<MyMagnet> {
-  CardinalDirection goalDirection = CardinalDirection("", 0.0);
+  Item goalDirection = Item("", 0.0);
   double correctDirection = 0.0;
   int score = 0;
   int previousScore = 0;
@@ -45,10 +45,10 @@ class MyMagnetState extends State<MyMagnet> {
 
   void setRandomDirection() {
     List directions = [
-      CardinalDirection("North", 0.0),
-      CardinalDirection("South", 180.0),
-      CardinalDirection("East", 90.0),
-      CardinalDirection("West", 270.0)
+      Item("North", 0.0),
+      Item("South", 180.0),
+      Item("East", 90.0),
+      Item("West", 270.0)
     ];
     int randomIndex = Random().nextInt(4);
     goalDirection = directions[randomIndex];
