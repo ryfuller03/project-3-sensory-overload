@@ -20,11 +20,8 @@ class Item {
   }
 }
 
-// ignore: must_be_immutable
 class MyMagnet extends StatefulWidget {
-  List<int> scoresList;
-
-  MyMagnet({super.key, required this.scoresList});
+  const MyMagnet({super.key});
 
   @override
   State createState() => MyMagnetState();
@@ -37,6 +34,7 @@ class MyMagnetState extends State<MyMagnet> {
   int previousScore = 0;
   bool orangeArrowVisible = false;
   final _streamSubscriptions = <StreamSubscription<dynamic>>[];
+  final List<int> scoresList = [];
   final Color themeColor = Colors.teal;
 
   MyMagnetState() {
@@ -64,7 +62,7 @@ class MyMagnetState extends State<MyMagnet> {
     setState(() {
       orangeArrowVisible = true;
       previousScore = score;
-      widget.scoresList.add(score);
+      scoresList.add(score);
     });
   }
 
@@ -137,7 +135,7 @@ class MyMagnetState extends State<MyMagnet> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              ScoreScreen(scoresList: widget.scoresList)));
+                              ScoreScreen(scoresList: scoresList)));
                 },
                 child: const Text("Scores Screen"),
               ))
@@ -169,5 +167,5 @@ class MyMagnetState extends State<MyMagnet> {
 
 void main() {
   runApp(
-      MaterialApp(title: "Magnet Game", home: MyMagnet(scoresList: const [])));
+      const MaterialApp(title: "Magnet Game", home: MyMagnet()));
 }

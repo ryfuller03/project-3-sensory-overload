@@ -2,19 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:project_3_sensory_overload/game.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key, scoresList});
-  final List<int> scoresList = [];
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
         title: 'Direction Game',
-        home: MyMagnet(
-          scoresList: scoresList,
-        ));
+        home: MyMagnet()
+    );
   }
 }
