@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_3_sensory_overload/game.dart';
-import 'package:project_3_sensory_overload/main.dart';
 
 void main() {
   // Because I am not using a MaterialApp in my build Widget, I create a TestingWidget Widget to wrap it in a Material App for me.
@@ -17,7 +16,7 @@ void main() {
       (WidgetTester tester) async {
     // Build the app.
     await tester
-        .pumpWidget(testingWidget(child: MyMagnet(scoresList: scoresListTest)));
+        .pumpWidget(testingWidget(child: const MyMagnet()));
 
     // Finds both "New Direction" and "Submit Answer" buttons.
     expect(find.byKey(const Key("New Direction Button")), findsOneWidget);
@@ -32,7 +31,7 @@ void main() {
       (WidgetTester tester) async {
     // Build the app.
     await tester
-        .pumpWidget(testingWidget(child: MyMagnet(scoresList: scoresListTest)));
+        .pumpWidget(testingWidget(child: const MyMagnet()));
 
     // Taps the "Submit Answer" button and updates the frames until no more
     // frames need to be drawn.
@@ -46,9 +45,7 @@ void main() {
   testWidgets("Score is calculated correctly", (WidgetTester tester) async {
     // Build the app.
     await tester.pumpWidget(testingWidget(
-        child: MyMagnet(
-      scoresList: scoresListTest,
-    )));
+        child: const MyMagnet()));
 
     // create a MyMagnetState to interact with its variables and functions.
     MyMagnetState magnetState = MyMagnetState();
@@ -67,7 +64,7 @@ void main() {
       // Build the app.
       (WidgetTester tester) async {
     await tester
-        .pumpWidget(testingWidget(child: MyMagnet(scoresList: scoresListTest)));
+        .pumpWidget(testingWidget(child: const MyMagnet()));
 
     // Taps the "Scores Screen Button" and waits until no more frames need
     // to be drawn.
@@ -82,7 +79,7 @@ void main() {
       (WidgetTester tester) async {
     // Build the app.
     await tester
-        .pumpWidget(testingWidget(child: MyMagnet(scoresList: scoresListTest)));
+        .pumpWidget(testingWidget(child: const MyMagnet()));
 
     // Add 53 to the test scoresList.
     scoresListTest.add(53);
