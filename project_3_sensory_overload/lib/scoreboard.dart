@@ -15,8 +15,8 @@ class ScoreboardEntry {
   int compareTo(ScoreboardEntry other) {
     int comparison = 0;
     
-    // loop through each sortable property in order and compare this entry's
-    // value with the other's. As soon as a non-equal value pair is found, the
+    // Loop through each sortable property in order and compare this entry's
+    // value with the other's. The first non-equal comparison is returned.
     for (var i = 0; i < sortOrder.length; i++) {
       comparison = sortOrder[i].compareTo(other.sortOrder[i]);
       if (comparison != 0) {
@@ -29,6 +29,36 @@ class ScoreboardEntry {
 
   @override
   String toString() => 'Score: $score; Goal: $goalDirection';
+}
+
+class ScoreboardEntryWidget extends StatelessWidget {
+  const ScoreboardEntryWidget({
+    super.key, 
+    required this.index, 
+    required this.entry
+  });
+  final int index;
+  final ScoreboardEntry entry;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('${entry.score}°'),
+          Text(entry.goalDirection)
+        ],
+      ),
+      leading: Text((index + 1).toString(),
+        style: const TextStyle(
+          color: Colors.orange,
+          fontSize: 24,
+          fontWeight: FontWeight.bold
+        )
+      )
+    );
+  }
 }
 
 class ScoreScreen extends StatefulWidget {
@@ -51,14 +81,16 @@ class ScoreScreenState extends State<ScoreScreen> {
           body: ListView.builder(
               key: const Key("Scores List"),
               itemCount: widget.scoresList.length,
-              prototypeItem: ListTile(title: Text(widget.scoresList.first.toString())),
-              itemBuilder: ((context, index) => ListTile(
-                  title: Text(widget.scoresList[index].toString()),
-                  leading: Text((index + 1).toString(),
-                      style: const TextStyle(
-                          color: Colors.orange,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold))))));
+              prototypeItem: ScoreboardEntryWidget(
+                index: 0, 
+                entry: widget.scoresList[0]
+              ),
+              itemBuilder: ((context, index) => ScoreboardEntryWidget(
+                index: index, 
+                entry: widget.scoresList[index]
+              ))
+          )
+      );
     } else {
       return Scaffold(
           appBar: AppBar(
