@@ -34,7 +34,7 @@ class MyMagnetState extends State<MyMagnet> {
   int previousScore = 0;
   bool orangeArrowVisible = false;
   final _streamSubscriptions = <StreamSubscription<dynamic>>[];
-  final List<int> scoresList = [];
+  final List<ScoreboardEntry> scoresList = [];
   final Color themeColor = Colors.teal;
 
   MyMagnetState() {
@@ -62,7 +62,10 @@ class MyMagnetState extends State<MyMagnet> {
     setState(() {
       orangeArrowVisible = true;
       previousScore = score;
-      scoresList.add(score);
+      scoresList.add(ScoreboardEntry(
+        score: score, 
+        goalDirection: goalDirection.directionName
+      ));
     });
   }
 
