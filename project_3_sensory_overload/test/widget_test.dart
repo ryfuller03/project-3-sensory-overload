@@ -12,13 +12,13 @@ void main() {
 
   // A sorted list for testing purposes.
   List<int> scoresListTest = [0, 47, 65, 82, 103, 156];
-  List<String> directionListTest = ['North', 'South', 'East', ]
+  List<String> directionListTest = ['North', 'South', 'East', 'West'];
 
   testWidgets('Text and Buttons show up correctly',
       (WidgetTester tester) async {
     // Build the app.
     await tester
-        .pumpWidget(testingWidget(child: MyMagnet(scoresList: scoresListTest, directionList: ,)));
+        .pumpWidget(testingWidget(child: MyMagnet(scoresList: scoresListTest, directionList: directionListTest)));
 
     // Finds both "New Direction" and "Submit Answer" buttons.
     expect(find.byKey(const Key("New Direction Button")), findsOneWidget);
@@ -33,7 +33,7 @@ void main() {
       (WidgetTester tester) async {
     // Build the app.
     await tester
-        .pumpWidget(testingWidget(child: MyMagnet(scoresList: scoresListTest)));
+        .pumpWidget(testingWidget(child: MyMagnet(scoresList: scoresListTest, directionList: directionListTest)));
 
     // Taps the "Submit Answer" button and updates the frames until no more
     // frames need to be drawn.
@@ -48,7 +48,7 @@ void main() {
     // Build the app.
     await tester.pumpWidget(testingWidget(
         child: MyMagnet(
-      scoresList: scoresListTest,
+      scoresList: scoresListTest, directionList: directionListTest
     )));
 
     // create a MyMagnetState to interact with its variables and functions.
@@ -68,7 +68,7 @@ void main() {
       // Build the app.
       (WidgetTester tester) async {
     await tester
-        .pumpWidget(testingWidget(child: MyMagnet(scoresList: scoresListTest)));
+        .pumpWidget(testingWidget(child: MyMagnet(scoresList: scoresListTest, directionList: directionListTest)));
 
     // Taps the "Scores Screen Button" and waits until no more frames need
     // to be drawn.
@@ -83,7 +83,7 @@ void main() {
       (WidgetTester tester) async {
     // Build the app.
     await tester
-        .pumpWidget(testingWidget(child: MyMagnet(scoresList: scoresListTest)));
+        .pumpWidget(testingWidget(child: MyMagnet(scoresList: scoresListTest, directionList: directionListTest)));
 
     // Add 53 to the test scoresList.
     scoresListTest.add(53);
