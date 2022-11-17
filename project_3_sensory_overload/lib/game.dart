@@ -62,7 +62,7 @@ class MyMagnetState extends State<MyMagnet> {
       orangeArrowVisible = true;
       previousScore = score;
       widget.scoresList.add(score);
-      widget.directionList.add(scoreDirection);
+      widget.directionList.add(goalDirection.toString());
     });
   }
 
