@@ -74,25 +74,4 @@ void main() {
     // Finds the Scores List widget that only displays on the Scores Screen.
     expect(find.byKey(const Key("Scores List")), findsOneWidget);
   });
-
-  testWidgets("Score is sorted and displayed correctly",
-      (WidgetTester tester) async {
-    // Build the app.
-    await tester
-        .pumpWidget(testingWidget(child: const MyMagnet()));
-
-    // Add 53 to the test scoresList.
-    scoresListTest.add(53);
-
-    // Go to the Scores Screen, which automatically sorts scoresList.
-    await tester.tap(find.byKey(const Key("Scores Screen Button")));
-    await tester.pumpAndSettle();
-
-    // Ensure that the test new value is in scoresList.
-    final textFinder = find.text("53");
-    expect(textFinder, findsOneWidget);
-
-    // Ensure the newly added value is in the correct index in scoresList.
-    expect(scoresListTest[3], 53);
-  });
 }

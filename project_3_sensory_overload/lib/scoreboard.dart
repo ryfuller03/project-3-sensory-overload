@@ -74,12 +74,12 @@ class ScoreScreenState extends State<ScoreScreen> {
   @override
   Widget build(BuildContext context) {
     widget.scoresList.sort((a, b) => a.compareTo(b));
-    if (widget.scoresList.isNotEmpty) {
       return Scaffold(
+        key: const Key("Scores List"),
           appBar: AppBar(
               title: const Text("Your Scores"), backgroundColor: Colors.teal),
-          body: ListView.builder(
-              key: const Key("Scores List"),
+          body: widget.scoresList.isNotEmpty
+            ? ListView.builder(
               itemCount: widget.scoresList.length,
               prototypeItem: ScoreboardEntryWidget(
                 index: 0, 
@@ -89,12 +89,14 @@ class ScoreScreenState extends State<ScoreScreen> {
                 index: index, 
                 entry: widget.scoresList[index]
               ))
-          )
+            )
+            : ListView(
+              children: const [
+                ListTile(
+                  title: Text("Your scores will show up here.")
+                )
+              ],
+            )
       );
-    } else {
-      return Scaffold(
-          appBar: AppBar(
-              title: const Text("Your Scores"), backgroundColor: Colors.teal));
-    }
   }
 }
