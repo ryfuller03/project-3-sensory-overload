@@ -39,7 +39,7 @@ class MyMagnetState extends State<MyMagnet> {
   bool orangeArrowVisible = false;
   final _streamSubscriptions = <StreamSubscription<dynamic>>[];
   final Color themeColor = Colors.teal;
-  String scoreDirection = "West";
+  String scoreDirection = "";
 
   MyMagnetState() {
     setRandomDirection();
@@ -55,6 +55,7 @@ class MyMagnetState extends State<MyMagnet> {
     int randomIndex = Random().nextInt(4);
     goalDirection = directions[randomIndex];
     orangeArrowVisible = false;
+    scoreDirection = directions[randomIndex];
   }
 
   void showSolution() {
