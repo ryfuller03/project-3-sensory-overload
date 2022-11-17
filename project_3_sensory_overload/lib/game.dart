@@ -45,6 +45,8 @@ class MyMagnetState extends State<MyMagnet> {
     setRandomDirection();
   }
 
+  int random = Random().nextInt(4);
+
   void setRandomDirection() {
     List directions = [
       Item("North", 0.0),
@@ -52,10 +54,20 @@ class MyMagnetState extends State<MyMagnet> {
       Item("East", 90.0),
       Item("West", 270.0)
     ];
-    int randomIndex = Random().nextInt(4);
+    int randomIndex = random;
     goalDirection = directions[randomIndex];
     orangeArrowVisible = false;
-    scoreDirection = directions[randomIndex];
+  }
+
+  void setScoreDirection() {
+    List scoreDirections = [
+      'North',
+      'South',
+      'East',
+      'West'
+    ];
+    int randomDirection = random;
+    scoreDirection = scoreDirections[randomDirection];
   }
 
   void showSolution() {
