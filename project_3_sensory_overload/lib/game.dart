@@ -66,7 +66,7 @@ class MyMagnetState extends State<MyMagnet> {
       'East',
       'West'
     ];
-    int randomDirection = random;
+    int randomDirection = Random().nextInt(4);
     scoreDirection = scoreDirections[randomDirection];
   }
 
