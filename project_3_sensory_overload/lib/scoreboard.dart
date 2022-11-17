@@ -20,6 +20,7 @@ class ScoreScreenState extends State<ScoreScreen> {
   @override
   Widget build(BuildContext context) {
     scoresList.sort((a, b) => a.compareTo(b));
+    if (scoresList.isNotEmpty) {
     return Scaffold(
         appBar: AppBar(
             title: const Text("Your Scores"), backgroundColor: Colors.teal),
@@ -36,5 +37,10 @@ class ScoreScreenState extends State<ScoreScreen> {
                         fontWeight: FontWeight.bold)),
                         
                 ))));
+    } else {
+      return Scaffold(
+          appBar: AppBar(
+              title: const Text("Your Scores"), backgroundColor: Colors.teal));
+    }
   }
 }

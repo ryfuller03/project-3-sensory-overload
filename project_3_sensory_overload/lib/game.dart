@@ -57,10 +57,15 @@ class MyMagnetState extends State<MyMagnet> {
 
   void setRandomDirection() {
     List directions = [
+      //Added new Directions Here: NW, SW, NE, and SE
       Item("North", 0.0),
+      Item("North East", 45.0),
       Item("South", 180.0),
+      Item("South East", 135.0),
       Item("East", 90.0),
-      Item("West", 270.0)
+      Item("North West", 315.0),
+      Item("West", 270.0),
+      Item("South West", 225.0)
     ];
     List scoreDirections = [
       "North",
