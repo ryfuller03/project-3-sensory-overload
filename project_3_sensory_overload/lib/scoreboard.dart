@@ -28,7 +28,7 @@ class ScoreScreenState extends State<ScoreScreen> {
             itemCount: scoresList.length,
             prototypeItem: ListTile(title: Text(scoresList.first.toString())),
             itemBuilder: ((context, index) => ListTile(
-                title: Text(scoresList[index].toString() + directionList.toString()),
+                title: Text(scoresList[index].toString() + directionList[index].toString()),
                 leading: Text((index + 1).toString(),
                     style: const TextStyle(
                         color: Colors.orange,
