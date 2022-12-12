@@ -134,7 +134,7 @@ class MyMagnetState extends State<MyMagnet> {
           Padding(
               padding: const EdgeInsets.only(top: 0.0),
               key: const Key("Goal Direction Text"),
-              child: Text("Goal Direction: ${goalDirection.getName()}",
+              child: Text("Goal Direction: \n ${goalDirection.getName()}",
                   style: const TextStyle(fontSize: 30),
                   textAlign: TextAlign.center)),
           Padding(
@@ -156,20 +156,38 @@ class MyMagnetState extends State<MyMagnet> {
               padding: const EdgeInsets.only(top: 25.0),
               child: ElevatedButton(
                   onPressed: showSolution,
-                  style: ElevatedButton.styleFrom(backgroundColor: themeColor),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: themeColor,
+                    shape: RoundedRectangleBorder(
+                      side: const BorderSide(color: Colors.black, width: 1),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
                   key: const Key("Submit Answer Button"),
                   child: const Text("Submit Answer"))),
           Padding(
               padding: const EdgeInsets.only(top: 0.0),
               child: ElevatedButton(
                   onPressed: setRandomDirection,
-                  style: ElevatedButton.styleFrom(backgroundColor: themeColor),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: themeColor,
+                    shape: RoundedRectangleBorder(
+                      side: const BorderSide(color: Colors.black, width: 1),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
                   key: const Key("New Direction Button"),
                   child: const Text("New Direction"))),
           Padding(
               padding: const EdgeInsets.only(top: 0),
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.orange,
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(color: Colors.black, width: 1),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
                 key: const Key("Scores Screen Button"),
                 onPressed: () {
                   Navigator.push(
