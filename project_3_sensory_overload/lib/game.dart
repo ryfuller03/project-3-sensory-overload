@@ -125,6 +125,7 @@ class MyMagnetState extends State<MyMagnet> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
+            centerTitle: true,
             title: const Text("Direction Guesser"),
             backgroundColor: Colors.teal),
         body: Center(
