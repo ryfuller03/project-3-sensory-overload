@@ -14,6 +14,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Direction Game',
+        // Set Digital as the default app font.
+        theme: ThemeData(fontFamily: 'Digital'),
         home: MyMagnet(
           scoresList: scoresList,
           directionList: directionList,
