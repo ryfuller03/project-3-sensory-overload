@@ -40,22 +40,22 @@ class MyMagnetState extends State<MyMagnet> {
   final _streamSubscriptions = <StreamSubscription<dynamic>>[];
   final Color themeColor = Colors.teal;
   String scoreDirection = "";
- // int random = Random().nextInt(4);
+  // int random = Random().nextInt(4);
+  bool hasAnswered = false;
 
   MyMagnetState() {
     setRandomDirection();
-   // setScoreDirection();
-   // randomizer();
-   
+    // setScoreDirection();
+    // randomizer();
   }
 
- // randomizer() {
+  // randomizer() {
   // int random = Random().nextInt(4);
- //   return random;
- // }
-  
+  //   return random;
+  // }
 
   void setRandomDirection() {
+    hasAnswered = false;
     List directions = [
       //Added new Directions Here: NW, SW, NE, and SE
       Item("North", 0.0),
@@ -83,24 +83,27 @@ class MyMagnetState extends State<MyMagnet> {
     scoreDirection = scoreDirections[randomIndex];
   }
 
- // void setScoreDirection() {
-   // List scoreDirections = [
-   //   "North",
+  // void setScoreDirection() {
+  // List scoreDirections = [
+  //   "North",
   //    "South",
   //    "East",
   //    "West"
- //   ];
-    //int randomDirection = Random().nextInt(4);
+  //   ];
+  //int randomDirection = Random().nextInt(4);
   //  scoreDirection = scoreDirections[randomizer()];
- // }
+  // }
 
   void showSolution() {
-    setState(() {
-      orangeArrowVisible = true;
-      previousScore = score;
-      widget.scoresList.add(score);
-      widget.directionList.add(scoreDirection);
-    });
+    if (!hasAnswered) {
+      setState(() {
+        orangeArrowVisible = true;
+        previousScore = score;
+        widget.scoresList.add(score);
+        widget.directionList.add(scoreDirection);
+      });
+    }
+    hasAnswered = true;
   }
 
   void processUserAnswer(double x, double y) {
@@ -171,8 +174,10 @@ class MyMagnetState extends State<MyMagnet> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              ScoreScreen(scoresList: widget.scoresList, directionList: widget.directionList,)));
+                          builder: (context) => ScoreScreen(
+                                scoresList: widget.scoresList,
+                                directionList: widget.directionList,
+                              )));
                 },
                 child: const Text("Scores Screen"),
               ))
@@ -203,6 +208,10 @@ class MyMagnetState extends State<MyMagnet> {
 }
 
 void main() {
-  runApp(
-      MaterialApp(title: "Magnet Game", home: MyMagnet(scoresList: const [], directionList: const [],)));
+  runApp(MaterialApp(
+      title: "Magnet Game",
+      home: MyMagnet(
+        scoresList: const [],
+        directionList: const [],
+      )));
 }
