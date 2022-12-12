@@ -134,7 +134,7 @@ class MyMagnetState extends State<MyMagnet> {
           Padding(
               padding: const EdgeInsets.only(top: 0.0),
               key: const Key("Goal Direction Text"),
-              child: Text("Goal Direction: \n ${goalDirection.getName()}",
+              child: Text("Goal Direction:\n${goalDirection.getName()}",
                   style: const TextStyle(fontSize: 30),
                   textAlign: TextAlign.center)),
           Padding(
@@ -152,7 +152,8 @@ class MyMagnetState extends State<MyMagnet> {
                     child: const Icon(Icons.arrow_upward,
                         size: 100.0, color: Colors.orange))
           ]),
-          Padding(
+          Container(
+              height: 75,
               padding: const EdgeInsets.only(top: 25.0),
               child: ElevatedButton(
                   onPressed: showSolution,
@@ -164,9 +165,13 @@ class MyMagnetState extends State<MyMagnet> {
                     ),
                   ),
                   key: const Key("Submit Answer Button"),
-                  child: const Text("Submit Answer"))),
-          Padding(
-              padding: const EdgeInsets.only(top: 0.0),
+                  child: const Text(
+                    "Submit Answer",
+                    style: TextStyle(fontSize: 20),
+                  ))),
+          Container(
+              height: 60,
+              padding: const EdgeInsets.only(top: 10.0),
               child: ElevatedButton(
                   onPressed: setRandomDirection,
                   style: ElevatedButton.styleFrom(
@@ -177,9 +182,13 @@ class MyMagnetState extends State<MyMagnet> {
                     ),
                   ),
                   key: const Key("New Direction Button"),
-                  child: const Text("New Direction"))),
-          Padding(
-              padding: const EdgeInsets.only(top: 0),
+                  child: const Text(
+                    "New Direction",
+                    style: TextStyle(fontSize: 20),
+                  ))),
+          Container(
+              height: 60,
+              padding: const EdgeInsets.only(top: 10.0),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.orange,
@@ -198,7 +207,10 @@ class MyMagnetState extends State<MyMagnet> {
                                 directionList: widget.directionList,
                               )));
                 },
-                child: const Text("Scores Screen"),
+                child: const Text(
+                  "Scores Screen",
+                  style: TextStyle(fontSize: 20),
+                ),
               ))
         ])));
   }
